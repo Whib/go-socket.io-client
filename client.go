@@ -11,7 +11,7 @@ import (
 type Options struct {
 	Transport string            //protocol name string,websocket polling...
 	Query     map[string]string //url的附加的参数
-	Header 	  map[string][]string
+	Header    map[string][]string
 }
 
 type Client struct {
@@ -95,6 +95,10 @@ func (client *Client) Emit(message string, args ...interface{}) (err error) {
 		return nil
 	}
 	return client.send(args)
+}
+
+func (client *Client) Close() error {
+	return client.conn.Close()
 }
 
 func (client *Client) sendConnect() error {
